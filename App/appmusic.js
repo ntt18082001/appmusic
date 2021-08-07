@@ -224,8 +224,8 @@ const app = {
         this.isRandom = this.config.isRandom;
         this.isRepeat = this.config.isRepeat;
         progress.value = this.config.progressValue;
-        audio.currentTime = this.config.currentTimeSong ?? 0;
-        this.currentIndex = parseInt(this.config.indexSong) ?? 0;
+        audio.currentTime = this.config.currentTimeSong == NaN ? 0 : this.config.currentTimeSong;
+        this.currentIndex = parseInt(this.config.indexSong) == NaN ? 0 :  parseInt(this.config.indexSong);
     },
     nextSong: function(){
         this.currentIndex++;

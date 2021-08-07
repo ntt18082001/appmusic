@@ -223,7 +223,6 @@ const app = {
         this.isRandom = this.config.isRandom;
         this.isRepeat = this.config.isRepeat;
         progress.value = this.config.progressValue;
-        audio.currentTime = this.config.currentTimeSong ?? 0;
         this.currentIndex = parseInt(this.config.indexSong);
     },
     nextSong: function(){

@@ -218,14 +218,14 @@ const app = {
         nameHeading.innerText = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.setAttribute('src', this.currentSong.path);
-        //this.setConfig('indexSong', this.currentIndex);
+        this.setConfig('indexSong', this.currentIndex);
     },
     loadConfig: function(){
         this.isRandom = this.config.isRandom;
         this.isRepeat = this.config.isRepeat;
-        progress.value = this.config.progressValue;
-        audio.currentTime = this.config.currentTimeSong == NaN ? 0 : this.config.currentTimeSong;
-        this.currentIndex = parseInt(this.config.indexSong) == NaN ? 0 :  parseInt(this.config.indexSong);
+        progress.value = this.config.progressValue ?? 0;
+        audio.currentTime = this.config.currentTimeSong ?? 0;
+        this.currentIndex = parseInt(this.config.indexSong) ?? 0;
     },
     nextSong: function(){
         this.currentIndex++;
@@ -252,7 +252,7 @@ const app = {
         this.currentIndex = this.currentIndex;
     },
     start: function(){
-        //this.loadConfig();
+        this.loadConfig();
         this.defineProperties();
         this.handleEvents();
         this.loadCurrentSong();

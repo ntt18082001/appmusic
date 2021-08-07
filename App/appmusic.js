@@ -214,7 +214,6 @@ const app = {
         };
     },
     loadCurrentSong: function(){
-        console.log(this.currentIndex);
         nameHeading.innerText = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.setAttribute('src', this.currentSong.path);
@@ -225,7 +224,7 @@ const app = {
         this.isRepeat = this.config.isRepeat;
         progress.value = this.config.progressValue ?? 0;
         audio.currentTime = this.config.currentTimeSong ?? 0;
-        this.currentIndex = parseInt(this.config.indexSong) ?? 0;
+        this.currentIndex = parseInt(this.config.indexSong) ?? '0';
     },
     nextSong: function(){
         this.currentIndex++;

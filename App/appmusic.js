@@ -29,62 +29,62 @@ const app = {
         {
             name: 'Hãy Trao Cho Anh',
             singer: 'Sơn Tùng MTP',
-            path: './mp4/Hãy-Trao-Cho-Anh.mp3',
-            image: './img/1562051254964_500.jpg'
+            path: './App/mp4/Hãy-Trao-Cho-Anh.mp3',
+            image: './App/img/1562051254964_500.jpg'
         },
         {
             name: 'Muộn Rồi Mà Sao Còn',
             singer: 'Sơn Tùng MTP',
-            path: './mp4/Muộn-Rồi-Mà-Sao-Còn.mp3',
-            image: './img/1619691182261_500.jpg'
+            path: './App/mp4/Muộn-Rồi-Mà-Sao-Còn.mp3',
+            image: './App/img/1619691182261_500.jpg'
         },
         {
             name: 'Em Của Ngày Hôm Qua',
             singer: 'Sơn Tùng MTP',
-            path: './mp4/Em-Của-Ngày-Hôm-Qua.mp3',
-            image: './img/1511029438465_500.jpg'
+            path: './App/mp4/Em-Của-Ngày-Hôm-Qua.mp3',
+            image: './App/img/1511029438465_500.jpg'
         },
         {
             name: 'Chạy Ngay Đi (Onionn Remix)',
             singer: 'Sơn Tùng MTP',
-            path: './mp4/Chạy-Ngay-Đi-(Onionn-Remix).mp3',
-            image: './img/1530757472153_500.jpg'
+            path: './App/mp4/Chạy-Ngay-Đi-(Onionn-Remix).mp3',
+            image: './App/img/1530757472153_500.jpg'
         },
         {
             name: 'Túy Âm',
             singer: 'Xesi x Masew x Nhat Nguyen',
-            path: './mp4/Tuy-Am-Xesi-Masew-Nhat-Nguyen.mp3',
-            image: './img/f9c0475ec02716554fba3f63e5b4ac37_1504991428.jpg'
+            path: './App/mp4/Tuy-Am-Xesi-Masew-Nhat-Nguyen.mp3',
+            image: './App/img/f9c0475ec02716554fba3f63e5b4ac37_1504991428.jpg'
         },
         {
             name: 'Senorita',
             singer: 'Camila Cabello',
-            path: './mp4/Señorita.mp3',
-            image: './img/1561114102335_500.jpg'
+            path: './App/mp4/Señorita.mp3',
+            image: './App/img/1561114102335_500.jpg'
         },
         {
             name: 'Havana',
             singer: 'Camila Cabello',
-            path: './mp4/Havana.mp3',
-            image: './img/1502075660969_500.jpg'
+            path: './App/mp4/Havana.mp3',
+            image: './App/img/1502075660969_500.jpg'
         },
         {
             name: '1 Phút',
             singer: 'Andiez',
-            path: './mp4/1-Phut-Andiez.mp3',
-            image: './img/fd4276c762a53e86ec980bb373a5a805_1504774753.jpg'
+            path: './App/mp4/1-Phut-Andiez.mp3',
+            image: './App/img/fd4276c762a53e86ec980bb373a5a805_1504774753.jpg'
         },
         {
             name: 'Yêu 5',
             singer: 'Rhymastic',
-            path: './mp4/Yeu-5-Rhymastic.mp3',
-            image: './img/b5aa78aa102467e5648160a4ac93df8e_1486467660.jpg'
+            path: './App/mp4/Yeu-5-Rhymastic.mp3',
+            image: './App/img/b5aa78aa102467e5648160a4ac93df8e_1486467660.jpg'
         },
         {
             name: 'Níu Duyên',
             singer: 'Lê Bảo Bình',
-            path: './mp4/Níu-Duyên.mp3',
-            image: './img/1607308157174_500.jpg'
+            path: './App/mp4/Níu-Duyên.mp3',
+            image: './App/img/1607308157174_500.jpg'
         }
     ],
     setConfig: function(key, value){

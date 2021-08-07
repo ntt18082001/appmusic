@@ -214,6 +214,7 @@ const app = {
         };
     },
     loadCurrentSong: function(){
+        console.log(this.currentIndex);
         nameHeading.innerText = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.setAttribute('src', this.currentSong.path);

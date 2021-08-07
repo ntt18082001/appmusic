@@ -224,7 +224,7 @@ const app = {
         this.isRepeat = this.config.isRepeat;
         progress.value = this.config.progressValue ?? 0;
         audio.currentTime = this.config.currentTimeSong ?? 0;
-        this.currentIndex = parseInt(this.config.indexSong) ?? '0';
+        this.currentIndex = this.config.indexSong ?? 0;
     },
     nextSong: function(){
         this.currentIndex++;

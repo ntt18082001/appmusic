@@ -218,7 +218,7 @@ const app = {
         nameHeading.innerText = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.setAttribute('src', this.currentSong.path);
-        this.setConfig('indexSong', this.currentIndex);
+        //this.setConfig('indexSong', this.currentIndex);
     },
     loadConfig: function(){
         this.isRandom = this.config.isRandom;
@@ -252,7 +252,7 @@ const app = {
         this.currentIndex = this.currentIndex;
     },
     start: function(){
-        this.loadConfig();
+        //this.loadConfig();
         this.defineProperties();
         this.handleEvents();
         this.loadCurrentSong();

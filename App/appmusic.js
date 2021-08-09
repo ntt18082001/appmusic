@@ -250,7 +250,7 @@ const app = {
         };
         btnVolume.oninput = function (ev) {
             audio.volume = ev.target.value / 100;
-            if (ev.target.value > 50) {
+            if (ev.target.value >= 50) {
                 _this.renderIcon(_this.icon.fas, _this.icon.volumeUp);
             } else if (ev.target.value > 0 && ev.target.value < 50) {
                 _this.renderIcon(_this.icon.fas, _this.icon.volumeDown);

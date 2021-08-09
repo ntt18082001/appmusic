@@ -424,7 +424,9 @@ const app = {
         this.loadCurrentSong();
     },
     loadConfig: function () {
-        this.songs = this.config.listSong ?? this.songs;
+        if(this.songs.length == this.config.listSong.length){
+            this.songs = this.config.listSong ?? this.songs;
+        }
         this.isRandom = this.config.isRandom;
         this.isRepeat = this.config.isRepeat;
         progress.value = this.config.progressValue ?? 0;

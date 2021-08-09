@@ -25,6 +25,7 @@ const app = {
     isRandom: false,
     isRepeat: false,
     isMute: false,
+    isNewTime: false,
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
     songs: [
         {
@@ -185,22 +186,29 @@ const app = {
         }
     },
     handleCountTime: function(time) {
-        let count = 59;
-        --time;
-        if(time >= 0){
-            var countTime = setInterval(function(){
-                document.querySelector(".timeCount").innerText = (time < 10 ? '0' + time : time) + ":" + (count < 10 ? '0' + count : count);
-                count--;
-                if(count < 0){
-                    time--;
-                    count = 59;
-                }
-                if(time < 0) {
-                    clearInterval(countTime);
-                    document.querySelector(".timeCount").innerText = '';
-                    audio.pause();
-                }
-            }, 1000);
+        Toast
+        if(document.querySelector('.timeCount').textContent != ''){
+            Toast.danger('Vui lòng chờ thời gian trước đó chạy xong!');
+            return;
+        } else {
+            let count = 59;
+            --time;
+            if(time >= 0){
+                var countTime = setInterval(function(){
+                    document.querySelector(".timeCount").innerText = (time < 10 ? '0' + time : time) + ":" + (count < 10 ? '0' + count : count);
+                    count--;
+                    if(count < 0){
+                        time--;
+                        count = 59;
+                    }
+                    if(time < 0) {
+                        clearInterval(countTime);
+                        this.isNewTime = !this.isNewTime;
+                        document.querySelector(".timeCount").innerText = '';
+                        audio.pause();
+                    }
+                }, 1000);
+            }
         }
     },
     defineProperties: function () {
@@ -444,6 +452,7 @@ const app = {
         };
         optionsTime.forEach(item => item.addEventListener('click', function(ev){
             optionsTime.forEach(el => el.classList.remove('activeTime'));
+            inputTime.value = '';
             ev.currentTarget.classList.add('activeTime');
         }));
         submitTime.onclick = function(ev) {

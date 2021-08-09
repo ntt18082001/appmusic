@@ -382,7 +382,6 @@ const app = {
                     _this.setConfig('listSong', _this.songs);
                     _this.loadConfig();
                     _this.render();
-                    audio.pause();
                 }
                 return false;
             }

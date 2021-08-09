@@ -427,8 +427,8 @@ const app = {
         if(this.config.listSong && this.songs.length == this.config.listSong.length){
             this.songs = this.config.listSong ?? this.songs;
         }
-        this.isRandom = this.config.isRandom;
-        this.isRepeat = this.config.isRepeat;
+        this.isRandom = this.config.isRandom ?? false;
+        this.isRepeat = this.config.isRepeat ?? false;
         progress.value = this.config.progressValue ?? 0;
         audio.currentTime = this.config.currentTimeSong ?? 0;
         this.currentIndex = this.config.indexSong ?? 0;

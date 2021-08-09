@@ -124,6 +124,13 @@ const app = {
             image: 'https://avatar-ex-swe.nixcdn.com/singer/avatar/2017/02/07/7/0/f/3/1486435488320.jpg',
             displayOrder: 13
         },
+        {
+            name: '3107-3',
+            singer: 'W/n, Duongg, Nâu, Titie',
+            path: 'https://f9-stream.nixcdn.com/Unv_Audio199/31073-WNDuonggNautitie-7059323.mp3?st=WKwhZcRhlDGXY5Z5f_rhQw&e=1628542479',
+            image: 'https://avatar-ex-swe.nixcdn.com/song/2021/08/02/f/d/b/3/1627913895076.jpg',
+            displayOrder: 14
+        },
     ],
     icon: { fas: 'fas', mute: 'fa-volume-mute', volumeDown: 'fa-volume-down', volumeUp: 'fa-volume-up' },
     setConfig: function (key, value) {

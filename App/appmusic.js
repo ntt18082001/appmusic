@@ -17,6 +17,7 @@ const btnRepeat = document.querySelector(".btn-repeat");
 const btnVolume = document.querySelector("#volume");
 const listSong = document.querySelector(".playlist");
 const btnVolumeIcon = document.querySelector("#volumeIcon");
+const clock = document.querySelector("#clock");
 
 const app = {
     currentIndex: 0,
@@ -183,6 +184,25 @@ const app = {
             return time = '0:0';
         }
     },
+    handleCountTime: function(time) {
+        let count = 59;
+        --time;
+        if(time >= 0){
+            var countTime = setInterval(function(){
+                document.querySelector(".timeCount").innerText = (time < 10 ? '0' + time : time) + ":" + (count < 10 ? '0' + count : count);
+                count--;
+                if(count < 0){
+                    time--;
+                    count = 59;
+                }
+                if(time < 0) {
+                    clearInterval(countTime);
+                    document.querySelector(".timeCount").innerText = '';
+                    audio.pause();
+                }
+            }, 1000);
+        }
+    },
     defineProperties: function () {
         Object.defineProperty(this, 'currentSong', {
             get: function () {
@@ -193,6 +213,11 @@ const app = {
     handleEvents: function () {
         const _this = this;
         const cdWidth = cd.offsetWidth;
+        let show = false;
+        let hour = document.querySelector(".hour");
+        let optionsTime = document.querySelectorAll('.hour ul li');
+        let submitTime = document.querySelector("#ok");
+        let inputTime = document.querySelector("#timer");
         const animateRotate = cdThumb.animate([
             { transform: 'rotate(360deg)' }
         ], {
@@ -401,6 +426,41 @@ const app = {
             }
             _this.setConfig('volume', currentVolume);
         };
+        clock.onclick = function() {
+            show = !show;
+            if(show){
+                hour.style.display = 'flex';
+            } else {
+                optionsTime.forEach(el => el.classList.remove('activeTime'));
+                hour.style.display = 'none';
+            }
+        };
+        document.querySelector('#close').onclick = function() {
+            hour.style.display = 'none';
+            optionsTime.forEach(el => el.classList.remove('activeTime'));
+            if(show){
+                show = !show;
+            }
+        };
+        optionsTime.forEach(item => item.addEventListener('click', function(ev){
+            optionsTime.forEach(el => el.classList.remove('activeTime'));
+            ev.currentTarget.classList.add('activeTime');
+        }));
+        submitTime.onclick = function(ev) {
+            const li = document.querySelector('.hour ul li.activeTime');
+            if(li){
+                let value = parseInt(li.getAttribute('data-value'));
+                optionsTime.forEach(el => el.classList.remove('activeTime'));
+                _this.handleCountTime(value);
+            } else if(inputTime.value != '') {
+                _this.handleCountTime(parseInt(inputTime.value));
+                inputTime.value = '';
+            }
+            hour.style.display = 'none';
+        };
+        inputTime.onfocus = function() {
+            optionsTime.forEach(item => item.classList.remove('activeTime'));
+        }
     },
     swapSong: function(a, b) {
         let temp = a;

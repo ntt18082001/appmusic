@@ -15,11 +15,28 @@
           <!-- Header -->
           <header>
             <div>
-              <i id="volumeIcon" class=""></i>
+              <i title="Âm lượng" id="volumeIcon" class=""></i>
               <input type="range" id="volume" value="20" step="1" min="0" max="100">
             </div>
             <h4>Now playing:</h4>
             <h2>String 57th & 9th</h2>
+            <div class="btn btn-clock">
+              <i title="Hẹn giờ" id="clock" class="fas fa-clock"></i>
+              <div class="hour">
+                <input id="timer" type="text" placeholder="Nhập số phút">
+                <ul>
+                  <li data-value="5">5 phút</li>
+                  <li data-value="15">15 phút</li>
+                  <li data-value="30">30 phút</li>
+                  <li data-value="60">1 giờ</li>
+                </ul>
+                <div class="btn-group">
+                  <button class="btn" id="ok">Đồng ý</button>
+                  <button class="btn" id="close">Hủy</button>
+                </div>
+              </div>
+              <span class="timeCount"></span>
+            </div>
           </header>
       
           <!-- CD -->
@@ -30,20 +47,20 @@
       
           <!-- Control -->
           <div class="control">
-            <div class="btn btn-repeat">
+            <div title="Lặp lại" class="btn btn-repeat">
               <i class="fas fa-redo"></i>
             </div>
-            <div class="btn btn-prev">
+            <div title="Bài trước" class="btn btn-prev">
               <i class="fas fa-step-backward"></i>
             </div>
             <div class="btn btn-toggle-play">
               <i class="fas fa-pause icon-pause"></i>
               <i class="fas fa-play icon-play"></i>
             </div>
-            <div class="btn btn-next">
+            <div title="Bài sau" class="btn btn-next">
               <i class="fas fa-step-forward"></i>
             </div>
-            <div class="btn btn-random">
+            <div title="Ngẫu nhiên" class="btn btn-random">
               <i class="fas fa-random"></i>
             </div>
           </div>

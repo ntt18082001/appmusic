@@ -49,17 +49,41 @@
   
   /* HEADER */
   header {
+    /* display: flex;
+    justify-content: space-around; */
     text-align: center;
     margin-bottom: 10px;
+    position: relative;
   }
   
   header h4 {
     color: var(--primary-color);
     font-size: 12px;
+    /* transform: translateX(-50px); */
   }
   
   header h2 {
     color: var(--text-color);
+    font-size: 20px;
+        /* transform: translateX(-170px) translateY(20px); */
+  }
+  header div {
+    position: absolute;
+    left: 10px;
+  }
+
+  header input {
+    transform: translateY(1px);
+    width: 90px;
+    cursor: pointer;
+  }
+
+  header i {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    /* transform: translate(-10px, 10px); */
+    color: white;
     font-size: 20px;
   }
   
@@ -76,6 +100,7 @@
     border-radius: 50%;
     background-color: #333;
     background-size: cover;
+    box-shadow: 0 0 0 8px white;
     margin: auto;
   }
   
@@ -134,7 +159,7 @@
   /* PLAYLIST */
   .playlist {
     border-radius: 5px;
-    margin-top: 410px;
+    margin-top: 435px;
     padding: 12px;
     background: linear-gradient(to right bottom, #FF00FF, #FF1493);
   }
@@ -216,4 +241,9 @@
   }
   .activeSong {
       background: linear-gradient(to right bottom, #66FFCC, #66CCFF);
+  }
+  #time {
+    width: 75px;
+    display: flex;
+    justify-content: space-between;
   }

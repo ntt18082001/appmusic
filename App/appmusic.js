@@ -424,7 +424,7 @@ const app = {
         this.loadCurrentSong();
     },
     loadConfig: function () {
-        if(this.songs.length == this.config.listSong.length){
+        if(this.config.listSong && this.songs.length == this.config.listSong.length){
             this.songs = this.config.listSong ?? this.songs;
         }
         this.isRandom = this.config.isRandom;

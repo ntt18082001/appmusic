@@ -18,6 +18,7 @@ const btnVolume = document.querySelector("#volume");
 const listSong = document.querySelector(".playlist");
 const btnVolumeIcon = document.querySelector("#volumeIcon");
 const clock = document.querySelector("#clock");
+const btnFormAdd = document.querySelector('.btn-add');
 
 const app = {
     currentIndex: 0,
@@ -27,6 +28,23 @@ const app = {
     isMute: false,
     isNewTime: false,
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+    formAdd: `<div class="add-song">
+                <div class="form-add">
+                    <h2>Thêm bài hát mới</h2>
+                    <label for="name">Tên bài hát</label>
+                    <input type="text" id="name" class="input-form" autocomplete="off">
+                    <label for="singer">Tên ca sĩ</label>
+                    <input type="text" id="singer" class="input-form" autocomplete="off">
+                    <label for="mp3">Đường dẫn bài hát</label>
+                    <input type="text" id="mp3" class="input-form" autocomplete="off">
+                    <label for="img">Đường dẫn ảnh</label>
+                    <input type="text" id="img" class="input-form" autocomplete="off">
+                    <div class="group-btn">
+                    <button class="btn btn-add-song">Thêm</button>
+                    <button class="btn btn-close">Hủy</button>
+                    </div>
+                </div>
+            </div>`,
     songs: [
         {
             name: 'Hãy Trao Cho Anh',
@@ -99,13 +117,6 @@ const app = {
             displayOrder: 9
         },
         {
-            name: 'Trắc Trở',
-            singer: 'X2X',
-            path: 'https://f9-stream.nixcdn.com/NhacCuaTui1017/TracTro-X2X-7040184.mp3?st=RULJaXBM0fXn9Y0KgkbGGQ&e=1628542479',
-            image: 'https://avatar-ex-swe.nixcdn.com/song/2021/06/28/8/4/3/c/1624872522478.jpg',
-            displayOrder: 10
-        },
-        {
             name: 'Nàng Thơ',
             singer: 'Hoàng Dũng',
             path: 'https://aredir.nixcdn.com/NhacCuaTui1001/NangTho-HoangDung-6413381.mp3?st=edbnaxrG7wdKPnPkthEkvg&e=1628542479',
@@ -118,29 +129,18 @@ const app = {
             path: 'https://aredir.nixcdn.com/NhacCuaTui1016/ThangNamSpecialPerformance-SoobinHoangSonSlimV-7020121.mp3?st=c5TofFzKHHG5hGilWIDT6w&e=1628542479',
             image: 'https://avatar-ex-swe.nixcdn.com/singer/avatar/2019/09/05/d/9/5/e/1567670108816.jpg',
             displayOrder: 12
-        },
-        {
-            name: 'Cô Đơn Dành Cho Ai (Lofi Version)',
-            singer: 'Lee Ken, Nal',
-            path: 'https://f9-stream.nixcdn.com/NhacCuaTui1019/CoDonDanhChoAiLofiVersion-LeeKenNal-7059350.mp3?st=QRk8Ai-l8mNCKDmDwF2_Eg&e=1628542479',
-            image: 'https://avatar-ex-swe.nixcdn.com/singer/avatar/2017/02/07/7/0/f/3/1486435488320.jpg',
-            displayOrder: 13
-        },
-        {
-            name: '3107-3',
-            singer: 'W/n, Duongg, Nâu, Titie',
-            path: 'https://f9-stream.nixcdn.com/Unv_Audio199/31073-WNDuonggNautitie-7059323.mp3?st=WKwhZcRhlDGXY5Z5f_rhQw&e=1628542479',
-            image: 'https://avatar-ex-swe.nixcdn.com/song/2021/08/02/f/d/b/3/1627913895076.jpg',
-            displayOrder: 14
-        },
+        }
     ],
     icon: { fas: 'fas', mute: 'fa-volume-mute', volumeDown: 'fa-volume-down', volumeUp: 'fa-volume-up' },
     setConfig: function (key, value) {
         this.config[key] = value;
         localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config));
     },
-    getSong: function(index) {
+    getSong: function (index) {
         return this.songs[index];
+    },
+    getDisplayOrderLast: function(){
+        return this.songs[this.songs.length-1].displayOrder;
     },
     render: function () {
         this.songs.sort(function (a, b) {
@@ -153,8 +153,8 @@ const app = {
                             <h3 class="title">${song.name}</h3>
                             <p class="author">${song.singer}</p>
                         </div>
-                        <div class="option">
-                             <i class="fas fa-ellipsis-h"></i>
+                        <div class="option" title="Xóa bài hát này">
+                             <i class="fas fa-times"></i>
                         </div>
                     </div>`;
         });
@@ -185,23 +185,22 @@ const app = {
             return time = '0:0';
         }
     },
-    handleCountTime: function(time) {
-        Toast
-        if(document.querySelector('.timeCount').textContent != ''){
+    handleCountTime: function (time) {
+        if (document.querySelector('.timeCount').textContent != '') {
             Toast.danger('Vui lòng chờ thời gian trước đó chạy xong!');
             return;
         } else {
             let count = 59;
             --time;
-            if(time >= 0){
-                var countTime = setInterval(function(){
+            if (time >= 0) {
+                var countTime = setInterval(function () {
                     document.querySelector(".timeCount").innerText = (time < 10 ? '0' + time : time) + ":" + (count < 10 ? '0' + count : count);
                     count--;
-                    if(count < 0){
+                    if (count < 0) {
                         time--;
                         count = 59;
                     }
-                    if(time < 0) {
+                    if (time < 0) {
                         clearInterval(countTime);
                         this.isNewTime = !this.isNewTime;
                         document.querySelector(".timeCount").innerText = '';
@@ -260,11 +259,13 @@ const app = {
                 _this.randomSong();
                 _this.loadCurrentSong();
                 _this.render();
+                _this.scrollToActiveSong();
                 audio.play();
             } else if (this.ended && _this.isRepeat) {
                 _this.repeatSong();
                 _this.loadCurrentSong();
                 _this.render();
+                _this.scrollToActiveSong();
                 audio.play();
             } else if (this.ended) {
                 _this.nextSong();
@@ -320,9 +321,9 @@ const app = {
                 btnRandom.classList.toggle('activeRandom');
             }
         };
-        $(document).on('click', '.song', function(ev){
+        $(document).on('click', '.song', function (ev) {
             const song = ev.target.closest('.song');
-            if (song.getAttribute('data-index') != _this.config.indexSong ?? _this.currentIndex) {
+            if ((song.getAttribute('data-index') != _this.config.indexSong ?? _this.currentIndex) && !ev.target.closest('.option')) {
                 _this.currentIndex = parseInt(song.getAttribute('data-index'));
                 _this.setConfig('indexSong', _this.currentIndex);
                 _this.loadCurrentSong();
@@ -330,7 +331,7 @@ const app = {
                 audio.play();
             }
         });
-        $(document).on('mousedown', '.song', function(ev){
+        $(document).on('mousedown', '.song', function (ev) {
             var dragSrcEl = ev.target.closest('.song');
             function dragStart(e) {
                 this.style.opacity = '0.4';
@@ -360,18 +361,20 @@ const app = {
                     this.innerHTML = e.dataTransfer.getData('text/html');
                     let songMove = _this.getSong(dragSrcEl.getAttribute('data-index'));
                     let songThis = _this.getSong(this.getAttribute('data-index'));
+                    let indexMove = dragSrcEl.getAttribute('data-index');
+                    let indexThis = this.getAttribute('data-index');
                     songThis.displayOrder = [songMove.displayOrder, songMove.displayOrder = songThis.displayOrder][0];
-                    this.setAttribute('data-index', songMove.displayOrder);
-                    dragSrcEl.setAttribute('data-index', songThis.displayOrder);
-                    _this.songs.sort(function(a, b) {
+                    this.setAttribute('data-index', indexMove);
+                    dragSrcEl.setAttribute('data-index', indexThis);
+                    _this.songs.sort(function (a, b) {
                         return a.displayOrder - b.displayOrder;
                     });
-                    if(dragSrcEl.className.split(' ').indexOf('activeSong')>=0){
-                        _this.setConfig('indexSong', songMove.displayOrder);
+                    if (dragSrcEl.className.split(' ').indexOf('activeSong') >= 0) {
+                        _this.setConfig('indexSong', parseInt(dragSrcEl.getAttribute('data-index')));
                         dragSrcEl.classList.remove('activeSong');
                         this.classList.add('activeSong');
-                    } else if(this.className.split(' ').indexOf('activeSong')>=0) {
-                        _this.setConfig('indexSong', songThis.displayOrder);
+                    } else if (this.className.split(' ').indexOf('activeSong') >= 0) {
+                        _this.setConfig('indexSong', parseInt(this.getAttribute('data-index')));
                         this.classList.remove('activeSong');
                         dragSrcEl.classList.add('activeSong');
                     }
@@ -382,6 +385,7 @@ const app = {
                     _this.setConfig('listSong', _this.songs);
                     _this.loadConfig();
                     _this.render();
+                    audio.pause();
                 }
                 return false;
             }
@@ -433,47 +437,113 @@ const app = {
             }
             _this.setConfig('volume', currentVolume);
         };
-        clock.onclick = function() {
+        clock.onclick = function () {
             show = !show;
-            if(show){
+            if (show) {
                 hour.style.display = 'flex';
             } else {
                 optionsTime.forEach(el => el.classList.remove('activeTime'));
                 hour.style.display = 'none';
             }
         };
-        document.querySelector('#close').onclick = function() {
+        document.querySelector('#close').onclick = function () {
             hour.style.display = 'none';
             optionsTime.forEach(el => el.classList.remove('activeTime'));
-            if(show){
+            if (show) {
                 show = !show;
             }
         };
-        optionsTime.forEach(item => item.addEventListener('click', function(ev){
+        optionsTime.forEach(item => item.addEventListener('click', function (ev) {
             optionsTime.forEach(el => el.classList.remove('activeTime'));
             inputTime.value = '';
             ev.currentTarget.classList.add('activeTime');
         }));
-        submitTime.onclick = function(ev) {
+        submitTime.onclick = function (ev) {
             const li = document.querySelector('.hour ul li.activeTime');
-            if(li){
+            if (li) {
                 let value = parseInt(li.getAttribute('data-value'));
                 optionsTime.forEach(el => el.classList.remove('activeTime'));
                 _this.handleCountTime(value);
-            } else if(inputTime.value != '') {
+            } else if (inputTime.value != '') {
                 _this.handleCountTime(parseInt(inputTime.value));
                 inputTime.value = '';
             }
             hour.style.display = 'none';
         };
-        inputTime.onfocus = function() {
+        inputTime.onfocus = function () {
             optionsTime.forEach(item => item.classList.remove('activeTime'));
-        }
+        };
+        btnFormAdd.onclick = function () {
+            document.body.insertAdjacentHTML('beforeend', _this.formAdd);
+        };
+        document.body.addEventListener('click', function (ev) {
+            const nameSong = document.querySelector("#name");
+            const nameSinger = document.querySelector("#singer");
+            const urlMp3 = document.querySelector("#mp3");
+            const urlImg = document.querySelector("#img");
+            if (ev.target.matches('.add-song')) {
+                if (nameSong.value == "") {
+                    ev.target.parentNode.removeChild(ev.target);
+                } else {
+                    Toast.danger('Dữ liệu đang được nhập!');
+                }
+            }
+            if (ev.target.matches('.btn-close')) {
+                document.querySelector('.add-song').remove();
+            }
+            if (ev.target.matches('.btn-add-song')) {
+                let displayOrder = _this.getDisplayOrderLast();
+                _this.songs.push({
+                    name: nameSong.value,
+                    singer: nameSinger.value,
+                    path: urlMp3.value,
+                    image: urlImg.value,
+                    displayOrder: ++displayOrder
+                });
+                _this.setConfig('listSong', _this.songs);
+                _this.render();
+                document.querySelector('.add-song').remove();
+                Toast.success('Thêm bài hát thành công!');
+            }
+        });
+        $(document).on('click', '.option', function(ev){
+            const song = ev.target.closest('.song');
+            let index = song.getAttribute('data-index');
+            if(song.matches('.song.activeSong')){
+                _this.songs.splice(parseInt(index), 1);
+                _this.setConfig('listSong', _this.songs);
+                _this.setConfig('indexSong', _this.currentIndex);
+                _this.loadConfig();
+                _this.loadCurrentSong();
+                _this.render();
+                audio.play();
+            }
+            if(song.matches('.song:not(.activeSong)')) {
+                if(_this.currentIndex > parseInt(index)){
+                    _this.songs.splice(parseInt(index), 1);
+                    _this.setConfig('indexSong', --_this.currentIndex);
+                    _this.setConfig('listSong', _this.songs);
+                    _this.loadConfig();
+                    _this.render();
+                    audio.pause();
+                }
+                 else {
+                    _this.songs.splice(parseInt(index), 1);
+                    _this.setConfig('listSong', _this.songs);
+                    _this.loadConfig();
+                    _this.render();
+                    audio.pause();
+                }
+            }
+        });
     },
-    swapSong: function(a, b) {
-        let temp = a;
-        a = b;
-        b = temp;
+    scrollToActiveSong: function(){
+        setTimeout(() => {
+            document.querySelector('.song.activeSong').scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+        }, 300);
     },
     loadCurrentSong: function () {
         nameHeading.innerText = this.currentSong.name;
@@ -483,7 +553,7 @@ const app = {
         audio.setAttribute('src', this.currentSong.path);
         this.setConfig('indexSong', this.currentIndex);
     },
-    loadSong: function(e) {
+    loadSong: function (e) {
         const songs = document.querySelectorAll('.song');
         songs.forEach(item => {
             item.classList.remove('activeSong');
@@ -492,7 +562,7 @@ const app = {
         this.loadCurrentSong();
     },
     loadConfig: function () {
-        if(this.config.listSong && this.songs.length == this.config.listSong.length){
+        if ((this.config.listSong && this.songs.length == this.config.listSong.length) || (this.config.listSong && this.songs.length != this.config.listSong.length)) {
             this.songs = this.config.listSong ?? this.songs;
         }
         this.isRandom = this.config.isRandom ?? false;
@@ -512,6 +582,7 @@ const app = {
         }
         this.loadCurrentSong();
         this.render();
+        this.scrollToActiveSong();
         audio.play();
     },
     prevSong: function () {
@@ -521,6 +592,7 @@ const app = {
         }
         this.loadCurrentSong();
         this.render();
+        this.scrollToActiveSong();
         audio.play();
     },
     randomSong: function () {
